@@ -19,13 +19,11 @@ public class ArticleLikeEntity {
     @Column(nullable = false)
     private LocalDateTime createdDate = LocalDateTime.now();
     @Column(nullable = false)
-    private LikeStatus status = LikeStatus.LIKE;
-
-
+    @Enumerated(value = EnumType.STRING)
+    private LikeStatus status;
     @JoinColumn(name = "article_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private ArticleEntity article;
-
     @JoinColumn(name = "profile_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private ProfileEntity profile;

@@ -20,7 +20,7 @@ public class ArticleController {
     @Autowired
     ArticleService articleService;
 
-    @PostMapping("/create")
+    @PostMapping("adm/create")
     public ResponseEntity<?> create(@RequestBody ArticleCreateDTO articleDTO, HttpServletRequest request) {
         Integer profileId = HttpHeaderUtil.getId(request, ProfileRole.MODERATOR);
         articleService.create(articleDTO, profileId);

@@ -2,6 +2,7 @@ package com.company.entity;
 
 import com.company.enums.ArticleStatus;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "article")
+@NoArgsConstructor
 public class ArticleEntity {
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -77,4 +79,7 @@ public class ArticleEntity {
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "article")
     private List<CommentEntity> commentList;
 
+    public ArticleEntity(String id) {
+        this.id = id;
+    }
 }

@@ -4,6 +4,7 @@ package com.company.entity;
 import com.company.enums.ProfileRole;
 import com.company.enums.ProfileStatus;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "profile")
+@NoArgsConstructor
 public class ProfileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,4 +50,7 @@ public class ProfileEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "moderator")
     private List<ArticleEntity> articleList;
 
+    public ProfileEntity(Integer id) {
+        this.id = id;
+    }
 }

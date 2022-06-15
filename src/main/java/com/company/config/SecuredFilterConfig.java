@@ -16,6 +16,8 @@ public class SecuredFilterConfig {
         bean.setFilter(jwtFilter);
 
         bean.addUrlPatterns("/profile/*");
+        bean.addUrlPatterns("/article/adm/*");
+        bean.addUrlPatterns("/article_like/*");
         bean.addUrlPatterns("/profile/public/*");
         return bean;
     }
