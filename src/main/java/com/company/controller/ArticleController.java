@@ -5,11 +5,13 @@ import com.company.dto.article.ArticleCreateDTO;
 import com.company.dto.article.ArticleDTO;
 import com.company.enums.ProfileRole;
 import com.company.service.ArticleService;
+import com.company.util.HttpHeaderUtil;
 import com.company.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequestMapping("/article")
@@ -19,8 +21,8 @@ public class ArticleController {
     ArticleService articleService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody ArticleCreateDTO articleDTO, @RequestHeader("Authorization") String jwt) {
-        Integer profileId = JwtUtil.decode(jwt, ProfileRole.MODERATOR   );
+    public ResponseEntity<?> create(@RequestBody ArticleCreateDTO articleDTO, HttpServletRequest request) {
+        Integer profileId = HttpHeaderUtil.getId(request, ProfileRole.MODERATOR);
         articleService.create(articleDTO, profileId);
         return ResponseEntity.ok().body("Successfully created");
     }

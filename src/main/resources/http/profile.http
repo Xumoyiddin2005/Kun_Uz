@@ -1,12 +1,12 @@
 ###
 POST http://localhost:8080/profile/create
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUyMDE1NjgsImV4cCI6MTY1NTIwNTE2OCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.p4C3d21VaaRqL7Z0hJcvP0C_NgKxoK-D6r0w1koaxIw
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUyOTcyNDMsImV4cCI6MTY1NTMwMDg0MywiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.uMwRCE3PIK292KtWBi-IsKyxKAy_GGEvj4ZFQfc35Ag
 
 {
-  "name": "SHJD",
-  "surName" :"KSOP",
-  "email" : "shks@gmail.com",
+  "name": "AFTER",
+  "surName" :"THEN",
+  "email" : "after@gmail.com",
   "password" : "12345678"
 }
 

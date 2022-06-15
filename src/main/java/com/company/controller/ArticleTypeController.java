@@ -5,12 +5,14 @@ import com.company.dto.article.TypesDTO;
 import com.company.enums.Language;
 import com.company.enums.ProfileRole;
 import com.company.service.TypesService;
+import com.company.util.HttpHeaderUtil;
 import com.company.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequestMapping("/type")
@@ -31,8 +33,8 @@ public class ArticleTypeController {
     // SECURED
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody TypesDTO typesDto, @RequestHeader("Authorization") String jwt) {
-        JwtUtil.decode(jwt, ProfileRole.ADMIN);
+    public ResponseEntity<?> create(@RequestBody TypesDTO typesDto, HttpServletRequest request) {
+        HttpHeaderUtil.getId(request, ProfileRole.MODERATOR);
         typesService.create(typesDto);
         return ResponseEntity.ok().body("Successfully created");
     }

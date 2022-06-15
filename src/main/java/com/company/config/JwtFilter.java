@@ -2,6 +2,7 @@ package com.company.config;
 
 import com.company.dto.JwtDTO;
 import com.company.util.JwtUtil;
+import io.jsonwebtoken.JwtException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -29,18 +30,20 @@ public class JwtFilter extends GenericFilterBean {
             return;
         }
 
-        String[] jwtArray = authHeader.split(" ");
-        if (jwtArray.length != 2) {
+        try {
+            String[] jwtArray = authHeader.split(" ");
+            if (jwtArray.length != 2) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setHeader("Message", "Token Not Valid");
+                return;
+            }
+
+            JwtDTO jwtDTO = JwtUtil.decodeJwtDTO(jwtArray[1]);
+            request.setAttribute("jwtDTO", jwtDTO);
+            filterChain.doFilter(request, response);
+        } catch (JwtException e) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.setHeader("Message", "Token Not Valid");
             return;
         }
-
-        JwtDTO jwtDTO = JwtUtil.decodeJwtDTO(jwtArray[1]);
-
-        request.setAttribute("jwtDTO", jwtDTO);
-        filterChain.doFilter(request, response);
-
-
     }
 }
