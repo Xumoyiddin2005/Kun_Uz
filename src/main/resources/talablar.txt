@@ -1,0 +1,100 @@
+******************* KUN_UZ *******************
+1. Profile
+    id,name,surname,email/phone,password,status,role,visible,created_date
+2. Types
+    id,key,name_uz, name_ru, name_en,visible,created_date
+     (Asosiy,Muharrir tanlovi,Dolzarb, Maqola,
+        Foto yangilik,Interview,Biznes,Surushturuv,Video Yangilik)
+3. Region
+    id,key,name_uz, name_ru, name_en,visible,created_date
+4. Category
+    id,key,name_uz, name_ru, name_en,visible,created_date
+5. Article_type
+    id,key,name_uz,name_ru,name_en,created_date
+6. Article
+    id(uuid),title,description,content,shared_count,image_id,
+    region_id,category_id,moderator_id,publisher_id,status(Published,NotPublished)
+    created_date,published_date,visible,view_count
+8. CommentLike
+    id,profile_id,article_id,created_date,status,
+9. Comment
+    id,created_date,update_date,profile_id,content,article_id,reply_id,visible
+10. CommentLike
+    id,profile_id,comment_id,created_date,status,
+11. SavedArticle
+    id, profile_id, article_id,created_date
+
+
+
+*** API list ***
+
+1.  Authorization
+       1. Registration (only user)
+            (name,surname,email/phone,password)
+       2. Login
+            (email/phone,password)
+2. Profile
+    1. Create profile (ADMIN, (can create moderator,publisher))
+    2. Update Profile (ADMIN)
+    3. Update Profile Detail (ANY)
+    4. Profile List (ADMIN) (Pagination)
+    5. Delete Profile By Id (ADMIN)
+    6. Filter (name,surname,phone,role,created_date_from,created_date_to)
+3. ArticleType
+    1. Create  (ADMIN)
+        (key,name_uz, name_ru, name_en)
+    2. Update by id (ADMIN)
+        (key,name_uz, name_ru, name_en)
+    3. Delete by id (ADMIN)
+    4. Get List (ADMIN) (Pagination)
+        (id,key,name_uz, name_ru, name_en,visible,created_date)
+    5. Get By Lang (Language keladi shu language dagi name larini berib yuboramiz)
+        (id,key,name) (name ga tegishli name_.. dagi qiymat qo'yiladi.)
+4. Region
+    1. Create  (ADMIN)
+        (key,name_uz, name_ru, name_en)
+    2. Update by id (ADMIN)
+        (key,name_uz, name_ru, name_en)
+    3. Delete by id (ADMIN)
+    4. Get List (ADMIN)
+        (id,key,name_uz, name_ru, name_en,visible,created_date)
+    5. Get By Lang (Language keladi shu language dagi name larini berib yuboramiz)
+        (id,key,name) (name ga tegishli name_.. dagi qiymat qo'yiladi.)
+5. Category
+    1. Create  (ADMIN)
+        (key,name_uz, name_ru, name_en)
+    2. Update by id (ADMIN)
+        (key,name_uz, name_ru, name_en)
+    3. Delete by id (ADMIN)
+    4. Get List (ADMIN)
+        (id,key,name_uz, name_ru, name_en,visible,created_date)
+    5. Get By Lang (Language keladi shu language dagi name larini berib yuboramiz)
+        (id,key,name) (name ga tegishli name_.. dagi qiymat qo'yiladi.)
+
+6. Article
+    1. CREATE (Moderator) status(NotPublished)
+        (title,description,content,shared_count,image_id, region_id,category_id)
+    2. Update (Moderator (status to not publish))
+        (title,description,content,shared_count,image_id, region_id,category_id)
+    3. Delete Article (MODERATOR)
+    4.
+
+
+
+    id(uuid),title,description,content,shared_count,image_id,
+    region_id,category_id,moderator_id,publisher_id,status(Published,NotPublished)
+    created_date,published_date,visible,view_count
+
+ 1. Article CRUD
+ 2. ArticleLike
+ 3. Comment CRUD
+ 4. CommentLike
+
+
+
+
+
+
+
+
+

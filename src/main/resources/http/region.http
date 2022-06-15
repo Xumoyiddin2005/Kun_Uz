@@ -1,0 +1,42 @@
+###
+POST http://localhost:8080/region/create
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUyMDE3MzAsImV4cCI6MTY1NTIwNTMzMCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.p8k-NTlM6EliXIZ9f91g9D8HaaV0iY_intG6meWW_nQ
+
+{
+  "key" : "region/tashkent",
+  "nameUz" : "toshkent",
+  "nameRu" : "ташкент",
+  "nameEn":"tashkent"
+}
+
+
+
+###
+GET http://localhost:8080/region/getList
+Content-Type: application/json
+
+
+###
+GET http://localhost:8080/region/admin
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUyMDE3MzAsImV4cCI6MTY1NTIwNTMzMCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.p8k-NTlM6EliXIZ9f91g9D8HaaV0iY_intG6meWW_nQ
+
+###
+PUT http://localhost:8080/region/update/9
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ4NDA1NzYsImV4cCI6MTY1NDg0NDE3NiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjo0LCJyb2xlIjoiQURNSU4ifQ._GdF9Y_4hzJvkil496bJ2_1OWF9ssAuDh5P2_KxnYaw
+
+{
+  "key" : "buxoro1",
+  "nameUz" : "buxoro",
+  "nameRu" : "бухорo",
+  "nameEn":"buxara"
+}
+
+###
+PUT http://localhost:8080/region/delete/2
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ4NDA1NzYsImV4cCI6MTY1NDg0NDE3NiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjo0LCJyb2xlIjoiQURNSU4ifQ._GdF9Y_4hzJvkil496bJ2_1OWF9ssAuDh5P2_KxnYaw
+
+

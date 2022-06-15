@@ -1,0 +1,23 @@
+###
+POST http://localhost:8080/auth/create
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5MzAxNjIsImV4cCI6MTY1NDkzMzc2MiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiQURNSU4ifQ.GG_i8XudgzNpAV9_BLGIwcw8eCNETxGK7kWoE6-l5YE
+
+{
+  "name": "publisher",
+  "surName": "publisheroy",
+  "email": "public.com",
+  "phone": "998942221144"
+}
+
+
+
+###
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+
+{
+  "email": "shks@gmail.com",
+  "password": "12345678"
+}

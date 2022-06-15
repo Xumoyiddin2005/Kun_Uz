@@ -1,0 +1,42 @@
+###
+POST http://localhost:8080/type/create
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUyMDE3MzAsImV4cCI6MTY1NTIwNTMzMCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.p8k-NTlM6EliXIZ9f91g9D8HaaV0iY_intG6meWW_nQ
+
+{
+  "key": "type/daxshatli",
+  "nameUz": "daxshatli_uz",
+  "nameRu": "daxshatli_ru",
+  "nameEn": "daxshatli_en"
+}
+
+
+###
+GET http://localhost:8080/type/public
+
+###
+GET http://localhost:8080/articleType/listAdmin
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5MzA4MjcsImV4cCI6MTY1NDkzNDQyNywiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiQURNSU4ifQ.3gDoa37j_z6EeKtCVuBYZRPsnHfGDS-ZgO3v1WEd2vU
+
+###
+PUT http://localhost:8080/articleType/2
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5MzA4MjcsImV4cCI6MTY1NDkzNDQyNywiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiQURNSU4ifQ.3gDoa37j_z6EeKtCVuBYZRPsnHfGDS-ZgO3v1WEd2vU
+
+{
+  "key": "buxoro",
+  "nameUz": "buxoro",
+  "nameRu": "бухорo",
+  "nameEn": "buxara"
+}
+
+###
+PUT http://localhost:8080/articleType/delete/1
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5MzA4MjcsImV4cCI6MTY1NDkzNDQyNywiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiQURNSU4ifQ.3gDoa37j_z6EeKtCVuBYZRPsnHfGDS-ZgO3v1WEd2vU
+
+
+###
+
+GET http://localhost:8080/type/pagination?page=1&size=2

@@ -1,0 +1,28 @@
+###
+POST http://localhost:8080/profile/create
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUyMDE1NjgsImV4cCI6MTY1NTIwNTE2OCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.p4C3d21VaaRqL7Z0hJcvP0C_NgKxoK-D6r0w1koaxIw
+
+{
+  "name": "SHJD",
+  "surName" :"KSOP",
+  "email" : "shks@gmail.com",
+  "password" : "12345678"
+}
+
+
+
+###
+PUT http://localhost:8080/profile/update
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5MzAxNjIsImV4cCI6MTY1NDkzMzc2MiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiQURNSU4ifQ.GG_i8XudgzNpAV9_BLGIwcw8eCNETxGK7kWoE6-l5YE
+
+{
+  "name": "Eldor",
+  "surName" :"Xolmuminov",
+  "email" : "eldorga@gmail.com",
+  "password" : "12345678"
+}
+###
+
+GET http://localhost:8080/profile/pagination?page = 0 & size = 2
