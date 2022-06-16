@@ -8,7 +8,7 @@ import com.company.dto.article.ArticleDTO;
 import com.company.entity.*;
 import com.company.enums.ArticleStatus;
 import com.company.exps.BadRequestException;
-import com.company.exps.ItemNotFoundEseption;
+import com.company.exps.ItemNotFoundException;
 import com.company.repository.ArticleRepository;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -84,7 +84,6 @@ public class ArticleService {
         dto.setRegion(regionService.toDTO(entity.getRegion()));
         dto.setCategory(toDTO2(entity.getCategory()));
         dto.setModeratorId(toDTO3(entity.getModerator()));
-//        dto.setPublisherId(toDTO1(entity.getPublisher()));
 
         return dto;
     }
@@ -92,7 +91,7 @@ public class ArticleService {
     public void delete(String id) {
         Optional<ArticleEntity> article = articleRepository.findById(id);
         if (article.isEmpty()) {
-            throw new ItemNotFoundEseption("Mazgi bu id li article yo'q");
+            throw new ItemNotFoundException("Mazgi bu id li article yo'q");
         }
         ArticleEntity entity = article.get();
         entity.setVisible(false);
@@ -105,7 +104,7 @@ public class ArticleService {
         Optional<ArticleEntity> optional = articleRepository.findById(id);
 
         if (optional.isEmpty()) {
-            throw new ItemNotFoundEseption("Bunday id li article yo'q");
+            throw new ItemNotFoundException("Bunday id li article yo'q");
         }
 
 
@@ -132,7 +131,7 @@ public class ArticleService {
 
     public ArticleEntity get(String id) {
         return articleRepository.findById(id).orElseThrow(() -> {
-            throw new ItemNotFoundEseption("article not found");
+            throw new ItemNotFoundException("article not found");
         });
     }
 
@@ -213,4 +212,49 @@ public class ArticleService {
 
         return new PageImpl(dtoList, pageable, all.getTotalElements());
     }
+
+    public List<ArticleDTO> findTop5ArticlesByTypeKey(String key) {
+
+
+
+        List<ArticleEntity> articleList = articleRepository.findTop5ByArticleNative(key);
+
+
+        List<ArticleDTO> dtoList = new LinkedList<>();
+
+        articleList.forEach(articleEntity -> {
+
+            ArticleDTO dto = new ArticleDTO();
+
+            dto.setUuid(articleEntity.getId());
+            dto.setTitle(articleEntity.getTitle());
+            dto.setDescription(articleEntity.getDescription());
+            dto.setPublishDate(articleEntity.getPublishDate());
+            dtoList.add(dto);
+        });
+
+        return dtoList;
+    }
+
+    public void updateByStatus(ArticleCreateDTO articleDTO, String id) {
+
+        isValid(articleDTO);
+
+        Optional<ArticleEntity> optional = articleRepository.findById(id);
+
+        if (optional.isEmpty()) {
+            throw new ItemNotFoundException("Article not found ");
+        }
+
+        ArticleEntity articleEntity = optional.get();
+
+        if (articleEntity.getStatus().equals(ArticleStatus.PUBLISHED)) {
+            articleEntity.setStatus(ArticleStatus.NOT_PUBLISHED);
+        } else if (articleEntity.getStatus().equals(ArticleStatus.NOT_PUBLISHED)) {
+            articleEntity.setStatus(ArticleStatus.PUBLISHED);
+        }
+
+        articleRepository.save(articleEntity);
+    }
+
 }

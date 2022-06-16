@@ -1,19 +1,13 @@
 package com.company.service;
 
 import com.company.dto.ProfileDTO;
-import com.company.dto.RegionDto;
-import com.company.dto.article.ArticleDTO;
-import com.company.dto.article.TypesDTO;
-import com.company.entity.ArticleEntity;
 import com.company.entity.ProfileEntity;
-import com.company.entity.RegionEntity;
-import com.company.entity.TypesEntity;
 import com.company.enums.ProfileRole;
 import com.company.enums.ProfileStatus;
 import com.company.exps.AlreadyExist;
 import com.company.exps.AlreadyExistPhone;
 import com.company.exps.BadRequestException;
-import com.company.exps.ItemNotFoundEseption;
+import com.company.exps.ItemNotFoundException;
 import com.company.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -71,7 +65,7 @@ public class ProfileService {
         Optional<ProfileEntity> profile = profileRepository.findById(pId);
 
         if (profile.isEmpty()) {
-            throw new ItemNotFoundEseption("not found profile");
+            throw new ItemNotFoundException("not found profile");
         }
 
         isValidUpdate(dto);
@@ -89,7 +83,7 @@ public class ProfileService {
     public void delete(Integer id) {
         Optional<ProfileEntity> profile = profileRepository.findById(id);
         if (profile.isEmpty()) {
-            throw new ItemNotFoundEseption("not found profile");
+            throw new ItemNotFoundException("not found profile");
         }
         if (!profile.get().getVisible()) {
             throw new AlreadyExist("IsVisible False edi");
@@ -118,7 +112,7 @@ public class ProfileService {
 
     public ProfileEntity get(Integer id) {
         return profileRepository.findById(id).orElseThrow(() -> {
-            throw new ItemNotFoundEseption("Region not found");
+            throw new ItemNotFoundException("Region not found");
         });
     }
 

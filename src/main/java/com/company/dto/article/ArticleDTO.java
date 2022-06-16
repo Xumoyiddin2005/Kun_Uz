@@ -7,12 +7,14 @@ import com.company.entity.CategoryEntity;
 import com.company.entity.ProfileEntity;
 import com.company.entity.RegionEntity;
 import com.company.enums.ArticleStatus;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ArticleDTO {
     private String uuid ;
 

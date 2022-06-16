@@ -28,9 +28,9 @@ public class ArticleController {
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable("id")String id, @RequestHeader("Authorization") String jwt,
+    public ResponseEntity<?> update(@PathVariable("id")String id, HttpServletRequest request,
                                     @RequestBody ArticleCreateDTO articleDTO) {
-        JwtUtil.decode(jwt, ProfileRole.MODERATOR);
+        HttpHeaderUtil.getId(request, ProfileRole.MODERATOR);
         articleService.update(id,articleDTO);
         return ResponseEntity.ok().body("Successfully updated");
     }
@@ -48,4 +48,21 @@ public class ArticleController {
         ResponseEntity<Object> build = ResponseEntity.ok().body("Successfully deleted");
         return build;
     }
+
+    @GetMapping("/getListByTypeKey/{key}")
+    public ResponseEntity<?> getListByTypeKey(@PathVariable("key") String key) {
+
+        List<ArticleDTO> list = articleService.findTop5ArticlesByTypeKey(key);
+        return ResponseEntity.ok().body(list);
+    }
+
+    @PostMapping("/adm/updateByStatus/{id}")
+    public ResponseEntity<?> updateByStatus(@RequestBody ArticleCreateDTO articleDTO ,
+                                            @RequestParam("id") String id ,
+                                            HttpServletRequest request) {
+        HttpHeaderUtil.getId(request , ProfileRole.PUBLISHER);
+        articleService.updateByStatus(articleDTO , id);
+        return ResponseEntity.ok().body("Successfully updated");
+    }
+
 }

@@ -79,6 +79,9 @@ public class ArticleEntity {
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "article")
     private List<CommentEntity> commentList;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "article")
+    private List<SavedArticleEntity> savedArticleEntities;
+
     public ArticleEntity(String id) {
         this.id = id;
     }

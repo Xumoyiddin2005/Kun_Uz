@@ -18,8 +18,8 @@ public class CommentLikeEntity {
     @Column(nullable = false)
     private LocalDateTime createdDate = LocalDateTime.now();
     @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
     private LikeStatus status = LikeStatus.LIKE;
-
 
     @JoinColumn(name = "comment_id")
     @ManyToOne(fetch = FetchType.LAZY)

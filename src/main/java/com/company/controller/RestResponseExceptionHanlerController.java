@@ -11,7 +11,7 @@ import javax.naming.NoPermissionException;
 public class RestResponseExceptionHanlerController {
 
 
-    @ExceptionHandler({BadRequestException.class, ItemNotFoundEseption.class,
+    @ExceptionHandler({BadRequestException.class, ItemNotFoundException.class,
             AlreadyExist.class, AlreadyExistPhone.class, AlreadyExistNameAndSurName.class})
     public ResponseEntity<String> handleException(RuntimeException e) {
         return ResponseEntity.badRequest().body(e.getMessage());

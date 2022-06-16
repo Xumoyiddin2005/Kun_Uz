@@ -1,13 +1,11 @@
 package com.company.service;
 
-import com.company.dto.article.ArticleCreateDTO;
 import com.company.dto.comment.CommentCreateDTO;
 import com.company.dto.comment.CommentDTO;
 import com.company.entity.ArticleEntity;
 import com.company.entity.CommentEntity;
 import com.company.entity.ProfileEntity;
-import com.company.exps.BadRequestException;
-import com.company.exps.ItemNotFoundEseption;
+import com.company.exps.ItemNotFoundException;
 import com.company.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,7 +63,7 @@ public class CommentService {
     public void delete(Integer id) {
         Optional<CommentEntity> comment = commentRepository.findById(id);
         if (comment.isEmpty()) {
-            throw new ItemNotFoundEseption("Mazgi bu idli comment yo'q");
+            throw new ItemNotFoundException("Mazgi bu idli comment yo'q");
         }
         CommentEntity entity = comment.get();
         entity.setVisible(false);
@@ -77,7 +75,7 @@ public class CommentService {
         Optional<CommentEntity> optional = commentRepository.findById(id);
 
         if (optional.isEmpty()) {
-            throw new ItemNotFoundEseption("Bunday id li comment yo'q");
+            throw new ItemNotFoundException("Bunday id li comment yo'q");
         }
 
 

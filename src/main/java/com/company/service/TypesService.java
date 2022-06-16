@@ -6,7 +6,7 @@ import com.company.entity.TypesEntity;
 import com.company.enums.Language;
 import com.company.exps.AlreadyExist;
 import com.company.exps.BadRequestException;
-import com.company.exps.ItemNotFoundEseption;
+import com.company.exps.ItemNotFoundException;
 import com.company.repository.TypeRepository;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -99,7 +99,7 @@ public class TypesService {
         Optional<TypesEntity> articleTypeEntity = typesRepository.findById(id);
 
         if (articleTypeEntity.isEmpty()) {
-            throw new ItemNotFoundEseption("not found articleType");
+            throw new ItemNotFoundException("not found articleType");
         }
 
         TypesEntity entity = articleTypeEntity.get();
@@ -116,7 +116,7 @@ public class TypesService {
         Optional<TypesEntity> entity = typesRepository.findById(id);
 
         if (entity.isEmpty()) {
-            throw new ItemNotFoundEseption("not found articleType");
+            throw new ItemNotFoundException("not found articleType");
         }
 
         if (entity.get().getVisible().equals(Boolean.FALSE)) {

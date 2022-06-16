@@ -1,13 +1,14 @@
 ###
 POST http://localhost:8080/type/create
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUyMDE3MzAsImV4cCI6MTY1NTIwNTMzMCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.p8k-NTlM6EliXIZ9f91g9D8HaaV0iY_intG6meWW_nQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUzNzQxNDcsImV4cCI6MTY1NTM3Nzc0NywiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.rE5wC0gp-mUKW09GOkAIiDdXfbd6jV8trH3CuUg6RSI
+
 
 {
-  "key": "type/daxshatli",
-  "nameUz": "daxshatli_uz",
-  "nameRu": "daxshatli_ru",
-  "nameEn": "daxshatli_en"
+  "key": "type/foto yangiliklar",
+  "nameUz": "foto yangiliklar_uz",
+  "nameRu": "foto yangiliklar_ru",
+  "nameEn": "foto yangiliklar_en"
 }
 
 

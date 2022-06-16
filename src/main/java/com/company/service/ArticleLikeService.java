@@ -4,7 +4,7 @@ import com.company.entity.ArticleEntity;
 import com.company.entity.ArticleLikeEntity;
 import com.company.entity.ProfileEntity;
 import com.company.enums.LikeStatus;
-import com.company.exps.ItemNotFoundEseption;
+import com.company.exps.ItemNotFoundException;
 import com.company.repository.ArticleLikeRepository;
 import com.company.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class ArticleLikeService {
         }
         boolean articleExists = articleRepository.existsById(articleId);
         if (!articleExists) {
-            throw new ItemNotFoundEseption("Article NotFound");
+            throw new ItemNotFoundException("Article NotFound");
         }
 
         ArticleLikeEntity like = new ArticleLikeEntity();

@@ -4,7 +4,6 @@ import com.company.dto.RegionDto;
 import com.company.entity.RegionEntity;
 import com.company.exps.AlreadyExist;
 import com.company.exps.BadRequestException;
-import com.company.exps.ItemNotFoundEseption;
 import com.company.repository.RegionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,7 +73,7 @@ public class RegionService {
     public RegionEntity get(Integer id) {
         Optional<RegionEntity> byId = regionRepository.findById(id);
         if (!byId.isPresent()) {
-            throw new ItemNotFoundEseption("Region Topilmadi!");
+            throw new ItemNotFoundException("Region Topilmadi!");
         }
         return byId.get();
     }
@@ -109,7 +108,7 @@ public class RegionService {
         Optional<RegionEntity> regionEntity = regionRepository.findById(id);
 
         if (regionEntity.isEmpty()) {
-            throw new ItemNotFoundEseption("not found region");
+            throw new ItemNotFoundException("not found region");
         }
 
         if (regionEntity.get().getVisible().equals(Boolean.FALSE)) {
@@ -130,7 +129,7 @@ public class RegionService {
         Optional<RegionEntity> regionEntity = regionRepository.findById(id);
 
         if (regionEntity.isEmpty()) {
-            throw new ItemNotFoundEseption("not found region");
+            throw new ItemNotFoundException("not found region");
         }
 
         if (regionEntity.get().getVisible().equals(Boolean.FALSE)) {

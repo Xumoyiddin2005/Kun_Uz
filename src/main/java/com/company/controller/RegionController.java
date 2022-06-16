@@ -3,11 +3,13 @@ package com.company.controller;
 import com.company.dto.RegionDto;
 import com.company.enums.ProfileRole;
 import com.company.service.RegionService;
+import com.company.util.HttpHeaderUtil;
 import com.company.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequestMapping("/region")
@@ -24,33 +26,33 @@ public class RegionController {
     }
 
     // SECURE
-    @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody RegionDto regionDto, @RequestHeader("Authorization") String jwt) {
-        JwtUtil.decode(jwt, ProfileRole.ADMIN);
+    @PostMapping("/adm/create")
+    public ResponseEntity<?> create(@RequestBody RegionDto regionDto, HttpServletRequest request) {
+        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
         regionService.create(regionDto);
         return ResponseEntity.ok().body("Successfully created");
     }
 
-    @GetMapping("/admin")
-    public ResponseEntity<List<RegionDto>> getlist(@RequestHeader("Authorization") String jwt) {
-        JwtUtil.decode(jwt, ProfileRole.ADMIN);
+    @GetMapping("/adm/admin")
+    public ResponseEntity<List<RegionDto>> getlist(HttpServletRequest request) {
+        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
         List<RegionDto> list = regionService.getListOnlyForAdmin();
         return ResponseEntity.ok().body(list);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/adm/update/{id}")
     private ResponseEntity<?> update(@PathVariable("id") Integer id,
                                      @RequestBody RegionDto dto,
-                                     @RequestHeader("Authorization") String jwt) {
-        JwtUtil.decode(jwt, ProfileRole.ADMIN);
+                                     HttpServletRequest request) {
+        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
         regionService.update(id, dto);
         return ResponseEntity.ok().body("Succsessfully updated");
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/adm/delete/{id}")
     private ResponseEntity<?> delete(@PathVariable("id") Integer id,
-                                     @RequestHeader("Authorization") String jwt) {
-        JwtUtil.decode(jwt, ProfileRole.ADMIN);
+                                     HttpServletRequest request) {
+        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
         regionService.delete(id);
         return ResponseEntity.ok().body("Successfully deleted");
     }

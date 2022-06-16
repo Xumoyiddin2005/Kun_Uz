@@ -32,7 +32,7 @@ public class CategoryController {
     }
 
     // SECURED
-    @PostMapping("/create")
+    @PostMapping("/adm/create")
     public ResponseEntity<?> create(@RequestBody CategoryDTO categoryDto,
                                     HttpServletRequest request) {
         HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
@@ -40,27 +40,27 @@ public class CategoryController {
         return ResponseEntity.ok().body("Successfully created");
     }
 
-    @GetMapping("/admin")
-    public ResponseEntity<List<CategoryDTO>> getList(@RequestHeader("Authorization") String jwt) {
-        JwtUtil.decode(jwt, ProfileRole.ADMIN);
+    @GetMapping("/adm/admin")
+    public ResponseEntity<List<CategoryDTO>> getList(HttpServletRequest request) {
+        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
         List<CategoryDTO> list = categoryService.getListOnlyForAdmin();
         return ResponseEntity.ok().body(list);
     }
 
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/adm/update/{id}")
     private ResponseEntity<?> update(@PathVariable("id") Integer id,
                                      @RequestBody CategoryDTO dto,
-                                     @RequestHeader("Authorization") String jwt) {
-        JwtUtil.decode(jwt, ProfileRole.ADMIN);
+                                     HttpServletRequest request) {
+        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
         categoryService.update(id, dto);
         return ResponseEntity.ok().body("Succsessfully updated");
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/adm/delete/{id}")
     private ResponseEntity<?> delete(@PathVariable("id") Integer id,
-                                     @RequestHeader("Authorization") String jwt) {
-        JwtUtil.decode(jwt, ProfileRole.ADMIN);
+                                     HttpServletRequest request) {
+        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
         categoryService.delete(id);
         return ResponseEntity.ok().body("Sucsessfully deleted");
     }

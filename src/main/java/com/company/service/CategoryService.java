@@ -1,15 +1,11 @@
 package com.company.service;
 
 import com.company.dto.CategoryDTO;
-import com.company.dto.ProfileDTO;
-import com.company.dto.article.TypesDTO;
 import com.company.entity.CategoryEntity;
-import com.company.entity.ProfileEntity;
-import com.company.entity.TypesEntity;
 import com.company.enums.Language;
 import com.company.exps.AlreadyExist;
 import com.company.exps.BadRequestException;
-import com.company.exps.ItemNotFoundEseption;
+import com.company.exps.ItemNotFoundException;
 import com.company.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -93,7 +89,7 @@ public class CategoryService {
         Optional<CategoryEntity> categoryEntity = categoryRepository.findById(id);
 
         if (categoryEntity.isEmpty()) {
-            throw new ItemNotFoundEseption("not found category");
+            throw new ItemNotFoundException("not found category");
         }
 
         CategoryEntity entity = categoryEntity.get();
@@ -109,7 +105,7 @@ public class CategoryService {
         Optional<CategoryEntity> entity = categoryRepository.findById(id);
 
         if (entity.isEmpty()) {
-            throw new ItemNotFoundEseption("not found category");
+            throw new ItemNotFoundException("not found category");
         }
 
         if (entity.get().getVisible().equals(Boolean.FALSE)) {
@@ -123,7 +119,7 @@ public class CategoryService {
 
     public CategoryEntity get(Integer id) {
         return categoryRepository.findById(id).orElseThrow(() -> {
-            throw new ItemNotFoundEseption("Region not found");
+            throw new ItemNotFoundException("Region not found");
         });
     }
 

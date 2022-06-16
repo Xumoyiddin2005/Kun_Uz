@@ -28,32 +28,32 @@ public class ProfileController {
     }
 
     @GetMapping("auth")
-    public ResponseEntity<List<ProfileDTO>> getProfileList(@RequestHeader("Authorization") String jwt) {
-        JwtUtil.decode(jwt, ProfileRole.ADMIN);
+    public ResponseEntity<List<ProfileDTO>> getProfileList(HttpServletRequest request) {
+        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
         List<ProfileDTO> list = profileService.getList();
         return ResponseEntity.ok().body(list);
     }
 
     @PutMapping("/detail")
     public ResponseEntity<?> update(@RequestBody ProfileDTO dto,
-                                    @RequestHeader("Authorization") String jwt) {
-        Integer profileId = JwtUtil.decode(jwt);
+                                    HttpServletRequest request) {
+        Integer profileId = HttpHeaderUtil.getId(request);
         profileService.update(profileId, dto);
-        return ResponseEntity.ok().body("Sucsessfully updated");
+        return ResponseEntity.ok().body("Successfully updated");
     }
 
     @PutMapping("/update/{id}")
-    private ResponseEntity<?> update(@PathVariable("id") Integer id, @RequestBody ProfileDTO dto, @RequestHeader("Authorization") String jwt) {
-        JwtUtil.decode(jwt, ProfileRole.ADMIN);
+    private ResponseEntity<?> update(@PathVariable("id") Integer id, @RequestBody ProfileDTO dto, HttpServletRequest request) {
+        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
         profileService.update(id, dto);
         return ResponseEntity.ok().body("Succsessfully updated");
     }
 
     @DeleteMapping("/delete/{id}")
-    private ResponseEntity<?> delete(@PathVariable("id") Integer id, @RequestHeader("Authorization") String jwt) {
-        JwtUtil.decode(jwt, ProfileRole.ADMIN);
+    private ResponseEntity<?> delete(@PathVariable("id") Integer id, HttpServletRequest request) {
+        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
         profileService.delete(id);
-        return ResponseEntity.ok().body("Sucsessfully deleted");
+        return ResponseEntity.ok().body("Successfully deleted");
     }
 
     @GetMapping("/pagination")

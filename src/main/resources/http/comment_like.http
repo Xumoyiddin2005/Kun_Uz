@@ -1,0 +1,7 @@
+POST http://localhost:8080/comment_like/like
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUzNzU5OTQsImV4cCI6MTY1NTM3OTU5NCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjo0LCJyb2xlIjoiVVNFUiJ9.u1RSgp6Qo8DZ6nJ3xRTjzZEvf6q5ja_-m7MtkhHFcc8
+
+{
+  "commentId": 5
+}

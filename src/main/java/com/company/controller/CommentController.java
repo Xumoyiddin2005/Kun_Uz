@@ -5,11 +5,13 @@ import com.company.dto.comment.CommentCreateDTO;
 import com.company.dto.comment.CommentDTO;
 import com.company.enums.ProfileRole;
 import com.company.service.CommentService;
+import com.company.util.HttpHeaderUtil;
 import com.company.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequestMapping("/comment")
@@ -19,10 +21,10 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @PostMapping("/create")
+    @PostMapping("/user/create")
     public ResponseEntity<?> create(@RequestBody CommentCreateDTO articleDTO,
-                                    @RequestHeader("Authorization") String jwt) {
-        Integer profileId = JwtUtil.decode(jwt, ProfileRole.USER);
+                                    HttpServletRequest request) {
+        Integer profileId = HttpHeaderUtil.getId(request, ProfileRole.USER);
         commentService.create(articleDTO, profileId);
         return ResponseEntity.ok().body("Successfully created");
     }
