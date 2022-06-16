@@ -41,8 +41,8 @@ public class CategoryController {
     }
 
     @GetMapping("/admin")
-    public ResponseEntity<List<CategoryDTO>> getList(@RequestHeader("Authorization") String jwt) {
-        JwtUtil.decode(jwt, ProfileRole.ADMIN);
+    public ResponseEntity<List<CategoryDTO>> getList(HttpServletRequest request) {
+        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
         List<CategoryDTO> list = categoryService.getListOnlyForAdmin();
         return ResponseEntity.ok().body(list);
     }
@@ -51,16 +51,16 @@ public class CategoryController {
     @PutMapping("/update/{id}")
     private ResponseEntity<?> update(@PathVariable("id") Integer id,
                                      @RequestBody CategoryDTO dto,
-                                     @RequestHeader("Authorization") String jwt) {
-        JwtUtil.decode(jwt, ProfileRole.ADMIN);
+                                     HttpServletRequest request) {
+        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
         categoryService.update(id, dto);
         return ResponseEntity.ok().body("Succsessfully updated");
     }
 
     @DeleteMapping("/delete/{id}")
     private ResponseEntity<?> delete(@PathVariable("id") Integer id,
-                                     @RequestHeader("Authorization") String jwt) {
-        JwtUtil.decode(jwt, ProfileRole.ADMIN);
+                                     HttpServletRequest request) {
+        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
         categoryService.delete(id);
         return ResponseEntity.ok().body("Sucsessfully deleted");
     }

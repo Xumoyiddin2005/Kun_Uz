@@ -84,7 +84,6 @@ public class ArticleService {
         dto.setRegion(regionService.toDTO(entity.getRegion()));
         dto.setCategory(toDTO2(entity.getCategory()));
         dto.setModeratorId(toDTO3(entity.getModerator()));
-//        dto.setPublisherId(toDTO1(entity.getPublisher()));
 
         return dto;
     }

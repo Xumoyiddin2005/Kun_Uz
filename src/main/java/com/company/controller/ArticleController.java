@@ -28,9 +28,9 @@ public class ArticleController {
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable("id")String id, @RequestHeader("Authorization") String jwt,
+    public ResponseEntity<?> update(@PathVariable("id")String id, HttpServletRequest request,
                                     @RequestBody ArticleCreateDTO articleDTO) {
-        JwtUtil.decode(jwt, ProfileRole.MODERATOR);
+        HttpHeaderUtil.getId(request, ProfileRole.MODERATOR);
         articleService.update(id,articleDTO);
         return ResponseEntity.ok().body("Successfully updated");
     }

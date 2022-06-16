@@ -41,8 +41,8 @@ public class ArticleTypeController {
 
 
     @GetMapping("")
-    public ResponseEntity<List<TypesDTO>> getlist(@RequestHeader("Authorization") String jwt) {
-        JwtUtil.decode(jwt, ProfileRole.ADMIN);
+    public ResponseEntity<List<TypesDTO>> getlist(HttpServletRequest request) {
+        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
         List<TypesDTO> list = typesService.getListOnlyForAdmin();
         return ResponseEntity.ok().body(list);
     }
@@ -51,16 +51,16 @@ public class ArticleTypeController {
     @PutMapping("/{id}")
     private ResponseEntity<?> update(@PathVariable("id") Integer id,
                                      @RequestBody RegionDto dto,
-                                     @RequestHeader("Authorization") String jwt) {
-        JwtUtil.decode(jwt, ProfileRole.ADMIN);
+                                     HttpServletRequest request) {
+        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
         typesService.update(id, dto);
         return ResponseEntity.ok().body("Succsessfully updated");
     }
 
     @DeleteMapping("/{id}")
     private ResponseEntity<?> delete(@PathVariable("id") Integer id,
-                                     @RequestHeader("Authorization") String jwt) {
-        JwtUtil.decode(jwt, ProfileRole.ADMIN);
+                                     HttpServletRequest request) {
+        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
         typesService.delete(id);
         return ResponseEntity.ok().body("Sucsessfully deleted");
     }
@@ -68,8 +68,6 @@ public class ArticleTypeController {
     @GetMapping("/pagination")
     public ResponseEntity<PageImpl> pagination(@RequestParam(value = "page", defaultValue = "1") int page,
                                                @RequestParam(value = "size", defaultValue = "5") int size) {
-
-//        List<TypesDTO> list = typesService.getPagination(page , size);
         PageImpl response = typesService.pagination(page, size);
         return ResponseEntity.ok().body(response);
     }
