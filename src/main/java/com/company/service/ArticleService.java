@@ -13,6 +13,8 @@ import com.company.repository.ArticleRepository;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.net.Inet4Address;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -236,24 +238,19 @@ public class ArticleService {
         return dtoList;
     }
 
-    public void updateByStatus(ArticleCreateDTO articleDTO, String id) {
-
-        isValid(articleDTO);
-
-        Optional<ArticleEntity> optional = articleRepository.findById(id);
+    public void updateByStatus(String articleId, Integer pId) {
+        Optional<ArticleEntity> optional = articleRepository.findById(articleId);
 
         if (optional.isEmpty()) {
             throw new ItemNotFoundException("Article not found ");
         }
 
         ArticleEntity articleEntity = optional.get();
-
-        if (articleEntity.getStatus().equals(ArticleStatus.PUBLISHED)) {
-            articleEntity.setStatus(ArticleStatus.NOT_PUBLISHED);
-        } else if (articleEntity.getStatus().equals(ArticleStatus.NOT_PUBLISHED)) {
-            articleEntity.setStatus(ArticleStatus.PUBLISHED);
+        if (articleEntity.getStatus().equals(ArticleStatus.NOT_PUBLISHED)) {
+            articleRepository.changeStatusToPublish(articleId, pId, ArticleStatus.PUBLISHED, LocalDateTime.now());
+        } else if (articleEntity.getStatus().equals(ArticleStatus.PUBLISHED)) {
+            articleRepository.changeStatusNotPublish(articleId, pId);
         }
-
         articleRepository.save(articleEntity);
     }
 

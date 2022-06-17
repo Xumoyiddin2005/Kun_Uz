@@ -56,13 +56,12 @@ public class ArticleController {
         return ResponseEntity.ok().body(list);
     }
 
-    @PostMapping("/adm/updateByStatus/{id}")
-    public ResponseEntity<?> updateByStatus(@RequestBody ArticleCreateDTO articleDTO ,
-                                            @RequestParam("id") String id ,
-                                            HttpServletRequest request) {
-        HttpHeaderUtil.getId(request , ProfileRole.PUBLISHER);
-        articleService.updateByStatus(articleDTO , id);
-        return ResponseEntity.ok().body("Successfully updated");
+    @PutMapping("/adm/status/{id}")
+    public ResponseEntity<Void> changeStatus(@PathVariable("id") String articleId,
+                                             HttpServletRequest request) {
+        Integer pId = HttpHeaderUtil.getId(request, ProfileRole.PUBLISHER);
+        articleService.updateByStatus(articleId, pId);
+        return ResponseEntity.ok().build();
     }
 
 }
