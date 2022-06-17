@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ArticleDTO {
-    private String uuid ;
+    private String id ;
 
     private String title;
 

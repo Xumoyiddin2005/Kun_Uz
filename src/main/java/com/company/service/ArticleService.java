@@ -9,6 +9,7 @@ import com.company.entity.*;
 import com.company.enums.ArticleStatus;
 import com.company.exps.BadRequestException;
 import com.company.exps.ItemNotFoundException;
+import com.company.mapper.ArticleShortInfoByCategory;
 import com.company.repository.ArticleRepository;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -72,7 +73,7 @@ public class ArticleService {
 
     public ArticleDTO toDTO(ArticleEntity entity) {
         ArticleDTO dto = new ArticleDTO();
-        dto.setUuid(entity.getId());
+        dto.setId(entity.getId());
         dto.setContent(entity.getContent());
         dto.setDescription(entity.getDescription());
         dto.setVisible(entity.getVisible());
@@ -133,20 +134,20 @@ public class ArticleService {
 
     public ArticleEntity get(String id) {
         return articleRepository.findById(id).orElseThrow(() -> {
-            throw new ItemNotFoundException("article not found");
+            throw new ItemNotFoundException("Article not found");
         });
     }
 
 
     private void isValid(ArticleCreateDTO dto) {
         if (dto.getContent() == null) {
-            throw new BadRequestException("Contenti xato.");
+            throw new BadRequestException("Content required.");
         }
         if (dto.getDescription() == null) {
-            throw new BadRequestException("Description xato.");
+            throw new BadRequestException("Description required.");
         }
         if (dto.getTitle() == null) {
-            throw new BadRequestException("Title xato");
+            throw new BadRequestException("Title required");
         }
 
     }
@@ -201,7 +202,7 @@ public class ArticleService {
             dto.setStatus(typesEntity.getStatus());
             dto.setTitle(typesEntity.getTitle());
             dto.setVisible(typesEntity.getVisible());
-            dto.setUuid(typesEntity.getId());
+            dto.setId(typesEntity.getId());
             dto.setPublishDate(typesEntity.getPublishDate());
             dto.setSharedCount(typesEntity.getSharedCount());
             dto.setViewCount(typesEntity.getViewCount());
@@ -217,10 +218,7 @@ public class ArticleService {
 
     public List<ArticleDTO> findTop5ArticlesByTypeKey(String key) {
 
-
-
         List<ArticleEntity> articleList = articleRepository.findTop5ByArticleNative(key);
-
 
         List<ArticleDTO> dtoList = new LinkedList<>();
 
@@ -228,23 +226,39 @@ public class ArticleService {
 
             ArticleDTO dto = new ArticleDTO();
 
-            dto.setUuid(articleEntity.getId());
+            dto.setId(articleEntity.getId());
             dto.setTitle(articleEntity.getTitle());
             dto.setDescription(articleEntity.getDescription());
             dto.setPublishDate(articleEntity.getPublishDate());
             dtoList.add(dto);
         });
+        return dtoList;
+    }
 
+    public List<ArticleDTO> findTop5ArticlesByTypeKCategory(String category) {
+
+        List<ArticleEntity> articleList = articleRepository.findTop5ByArticleNative(category);
+
+        List<ArticleDTO> dtoList = new LinkedList<>();
+
+        articleList.forEach(articleEntity -> {
+
+            ArticleDTO dto = new ArticleDTO();
+
+            dto.setId(articleEntity.getId());
+            dto.setTitle(articleEntity.getTitle());
+            dto.setDescription(articleEntity.getDescription());
+            dto.setPublishDate(articleEntity.getPublishDate());
+            dtoList.add(dto);
+        });
         return dtoList;
     }
 
     public void updateByStatus(String articleId, Integer pId) {
         Optional<ArticleEntity> optional = articleRepository.findById(articleId);
-
         if (optional.isEmpty()) {
             throw new ItemNotFoundException("Article not found ");
         }
-
         ArticleEntity articleEntity = optional.get();
         if (articleEntity.getStatus().equals(ArticleStatus.NOT_PUBLISHED)) {
             articleRepository.changeStatusToPublish(articleId, pId, ArticleStatus.PUBLISHED, LocalDateTime.now());
@@ -252,6 +266,63 @@ public class ArticleService {
             articleRepository.changeStatusNotPublish(articleId, pId);
         }
         articleRepository.save(articleEntity);
+    }
+
+
+    public List<ArticleDTO> getLast5ArticleByCategory(String categoryKey) {
+        CategoryEntity category = categoryService.get(categoryKey);
+
+        List<ArticleEntity> articleList = articleRepository.findTop5ByCategoryAndStatusAndVisibleTrueOrderByCreatedDateDesc(
+                category, ArticleStatus.PUBLISHED);
+        List<ArticleDTO> dtoList = new LinkedList<>();
+        articleList.forEach(article -> {
+            dtoList.add(shortDTOInfo(article));
+        });
+
+        return dtoList;
+    }
+
+//    public List<ArticleDTO> getLast5ArticleByCategory2(String categoryKey) {
+//        Pageable pageable = PageRequest.of(0, 5);
+//        Page<ArticleEntity> articlePage = articleRepository.findLast5ByCategory(
+//                categoryKey, ArticleStatus.PUBLISHED, pageable);
+//        int n =  articlePage.getTotalPages();
+//
+//        List<ArticleDTO> dtoList = new LinkedList<>();
+//        articlePage.getContent().forEach(article -> {
+//            dtoList.add(shortDTOInfo(article));
+//        });
+//        return dtoList;
+//    }
+
+    public ArticleDTO shortDTOInfo(ArticleEntity entity) {
+        ArticleDTO dto = new ArticleDTO();
+        dto.setId(entity.getId());
+        dto.setTitle(entity.getTitle());
+        dto.setDescription(entity.getDescription());
+        dto.setPublishDate(entity.getPublishDate());
+        // TODO image
+        return dto;
+    }
+
+    public ArticleDTO shortDTOInfo(ArticleShortInfoByCategory entity) {
+        ArticleDTO dto = new ArticleDTO();
+        dto.setId(entity.getId());
+        dto.setTitle(entity.getTitle());
+        dto.setDescription(entity.getDescription());
+        dto.setPublishDate(entity.getPublishDate());
+        // TODO image
+        return dto;
+    }
+
+    public List<ArticleDTO> getLast5ArticleByCategory3(String categoryKey) {
+        List<ArticleShortInfoByCategory> articleList = articleRepository.findTop5ByArticleByCategory2(categoryKey);
+
+        List<ArticleDTO> dtoList = new LinkedList<>();
+        articleList.forEach(article -> {
+            dtoList.add(shortDTOInfo(article));
+        });
+        return dtoList;
     }
 
 }

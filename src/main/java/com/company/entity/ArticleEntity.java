@@ -85,4 +85,12 @@ public class ArticleEntity {
     public ArticleEntity(String id) {
         this.id = id;
     }
+
+
+    public ArticleEntity(String id, String title, String description, LocalDateTime publishDate) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.publishDate = publishDate;
+    }
 }

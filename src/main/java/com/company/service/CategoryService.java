@@ -123,6 +123,12 @@ public class CategoryService {
         });
     }
 
+    public CategoryEntity get(String key) {
+        return categoryRepository.findByKey(key).orElseThrow(() -> {
+            throw new ItemNotFoundException("Region not found");
+        });
+    }
+
     public CategoryDTO toDTO(CategoryEntity entity) {
         CategoryDTO dto = new CategoryDTO();
         dto.setId(entity.getId());

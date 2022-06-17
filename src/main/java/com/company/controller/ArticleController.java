@@ -64,4 +64,10 @@ public class ArticleController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/category/{categoryKey}")
+    public ResponseEntity<List<ArticleDTO>> getLast5ArticleByCategory(@PathVariable("categoryKey") String categoryKey) {
+        List<ArticleDTO> response = articleService.getLast5ArticleByCategory(categoryKey);
+        return ResponseEntity.ok().body(response);
+    }
+
 }

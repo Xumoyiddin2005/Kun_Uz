@@ -4,6 +4,7 @@ import com.company.dto.RegionDto;
 import com.company.entity.RegionEntity;
 import com.company.exps.AlreadyExist;
 import com.company.exps.BadRequestException;
+import com.company.exps.ItemNotFoundException;
 import com.company.repository.RegionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,6 +96,7 @@ public class RegionService {
 
         all.forEach(regionEntity -> {
             RegionDto dto = new RegionDto();
+            dto.setId(regionEntity.getId());
             dto.setKey(regionEntity.getKey());
             dto.setNameUz(regionEntity.getNameUz());
             dto.setNameRu(regionEntity.getNameRu());
@@ -116,7 +118,6 @@ public class RegionService {
         }
 
         RegionEntity entity = regionEntity.get();
-
         entity.setKey(dto.getKey());
         entity.setNameUz(dto.getNameUz());
         entity.setNameRu(dto.getNameRu());

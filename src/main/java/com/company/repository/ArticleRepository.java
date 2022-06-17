@@ -1,8 +1,12 @@
 package com.company.repository;
 
 import com.company.entity.ArticleEntity;
+import com.company.entity.CategoryEntity;
 import com.company.enums.ArticleStatus;
 import com.company.enums.LikeStatus;
+import com.company.mapper.ArticleShortInfoByCategory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -40,5 +44,27 @@ public interface ArticleRepository extends PagingAndSortingRepository<ArticleEnt
     @Transactional
     @Query("update ArticleEntity a set a.status =:status where a.id=:articleId")
     void changeStatusNotPublish(@Param("articleId") String articleId, @Param("pid") Integer pId);
+
+
+//    @Query("SELECT new ArticleEntity(art.id, art.title, art.description, art.publishDate) " +
+//            " from ArticleEntity  as art where art.category.key =:categoryKey and art.status =:status " +
+//            " and art.visible = true " +
+//            " order by art.publishDate ")
+//    Page<ArticleEntity> findLast5ByCategory(@Param("categoryKey") String categoryKey,
+//                                            @Param("status") ArticleStatus status, Pageable pageable);
+
+    List<ArticleEntity> findTop5ByCategoryAndStatusAndVisibleTrueOrderByCreatedDateDesc(CategoryEntity category,
+                                                                                        ArticleStatus status);
+
+    List<ArticleEntity> findTop5ByCategoryAndStatusAndVisibleOrderByCreatedDateDesc(CategoryEntity category,
+                                                                                    ArticleStatus status, Boolean visible);
+
+    @Query(value = "select  art.id as id ,art.title as title, art.description as description,art.publish_date as publishDate" +
+            "from article as art " +
+            "inner join category as cat on art.category_id = cat.id " +
+            "where cat.key=:key and art.status='PUBLISHED' and art.visible=true  " +
+            "order by art.publish_date limit 5 ",
+            nativeQuery = true)
+    List<ArticleShortInfoByCategory> findTop5ByArticleByCategory2(@Param("key") String key);
 
 }
